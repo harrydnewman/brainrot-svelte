@@ -4,6 +4,7 @@
     let description = '';
     let descriptionSourceLink = '';
     let descriptionSource = '';
+    let tiktokUsername = '';
     let videoLink = '';
     let videoSource = '';
 
@@ -25,7 +26,9 @@
         formData.append('description', description);
         formData.append('descriptionSourceLink', descriptionSourceLink);
         formData.append('descriptionSource', descriptionSource);
-
+        formData.append('videoLink', videoLink);
+        formData.append('videoSource', videoSource);
+        formData.append('tiktokUsername', tiktokUsername);
         // Log the form data
         console.log('Title being sent:', title);
         for (let [key, value] of formData.entries()) {
@@ -62,6 +65,9 @@
         <textarea id="description" name="description" bind:value={description} placeholder="Description"></textarea>
         <input id="descriptionSourceLink" type="text" name="descriptionSourceLink" bind:value={descriptionSourceLink} placeholder="Description Source Link" />
         <input id="descriptionSource" type="text" name="descriptionSource" bind:value={descriptionSource} placeholder="Description Source" />
+        <input id="videoLink" type="text" name="videoLink" bind:value={videoLink} placeholder="Video Link" />
+        <input id="videoSource" type="text" name="videoSource" bind:value={videoSource} placeholder="Video Source" />
+        <input id="tiktokUsername" type="text" name="tiktokUsername" bind:value={tiktokUsername} placeholder="TikTok Username" />
         <input id="video" type="file" name="video" on:change={handleFileUpload} />
         <button type="submit">Upload</button>
         <!-- need to handle redirecting to new upload page -->

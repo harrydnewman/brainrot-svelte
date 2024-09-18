@@ -42,8 +42,21 @@ app.post('/uploadVideo', upload.single('video'), (req, res) => {
             message: 'File uploaded successfully!',
             title: title,
             filePath: req.file.path
-            
         });
+
+        var data = {
+            // nbeed to make a uuid
+            title: req.body.title,
+            description: req.body.description,
+            descriptionSourceLink: req.body.descriptionSourceLink,
+            descriptionSource: req.body.descriptionSource,
+            videoLink: req.body.videoLink,
+            videoSource: req.body.videoSource,
+            tiktokUsername: req.body.tiktokUsername,
+            filePath: req.file.path
+        }
+        // db.insert(data);
+        console.log(data);
     } catch (error) {
         console.error('Error during file upload:', error);
         res.status(500).json({ message: 'Internal Server Error' });
