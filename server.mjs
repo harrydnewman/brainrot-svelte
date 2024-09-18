@@ -12,31 +12,41 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, 'uploads');
-        if (!fs.existsSync(uploadPath)) {
-            fs.mkdirSync(uploadPath);
+const upload = multer({ 
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'uploads/')
+        },
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + '-' + file.originalname)
         }
-        cb(null, uploadPath);
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
+    })
 });
 
-const upload = multer({ storage: storage });
+var db = new Datastore({ filename: path.join(__dirname, 'database.txt'), autoload: true });
 
 app.use(express.static('public'));
 app.use(cors());
 
 app.post('/uploadVideo', upload.single('video'), (req, res) => {
+    console.log('Received request body:', req.body);
+    console.log('Received file:', req.file);
+    // title still not being received!!
+    
     if (!req.file) {
         console.error('No file received');
         return res.status(400).json({ message: 'No file received' });
     }
     try {
-        res.status(200).json({ message: 'File uploaded successfully! ' + req.file.path });
+        const title = req.body.title || 'Untitled';
+        console.log('Title:', title);
+        console.log('File:', req.file);
+        
+        res.status(200).json({ 
+            message: 'File uploaded successfully!',
+            title: title,
+            filePath: req.file.path 
+        });
     } catch (error) {
         console.error('Error during file upload:', error);
         res.status(500).json({ message: 'Internal Server Error' });

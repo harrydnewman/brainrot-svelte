@@ -1,5 +1,6 @@
 <script>
     let file;
+    let title;
 
     function handleFileUpload(event) {
         file = event.target.files[0];
@@ -15,6 +16,13 @@
 
         const formData = new FormData();
         formData.append('video', file);
+        formData.append('title', title);
+
+        // Log the form data
+        console.log('Title being sent:', title);
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
 
         try {
             const response = await fetch("http://localhost:3000/uploadVideo", {
@@ -42,6 +50,7 @@
 <div class="container">
     <h1>Upload</h1>
     <form on:submit={uploadFile} enctype="multipart/form-data">
+        <input id="title" type="text" name="title" placeholder="Title" />
         <input id="video" type="file" name="video" on:change={handleFileUpload} />
         <button type="submit">Upload</button>
     </form>
