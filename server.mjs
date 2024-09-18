@@ -25,7 +25,7 @@ const upload = multer({
 
 var db = new Datastore({ filename: path.join(__dirname, 'database.txt'), autoload: true });
 
-app.use(express.static('public'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors());
 
 app.post('/uploadVideo', upload.single('video'), (req, res) => {
@@ -77,11 +77,23 @@ app.get('/getVideos', (req, res) => {
     });
 });
 
+app.get('/getVideo:videoPath', (req, res) => {
+    const videoPath = path.join(__dirname, 'uploads', req.params.videoPath);
+    
+    fs.access(videoPath, fs.constants.F_OK, (err) => {
+        if (err) {
+            console.error('Video file not found:', err);
+            return res.status(404).json({ message: 'Video not found' });
+        }
+        res.sendFile(filePath);
+    })
+})
+
 app.get('/requestContent', (req, res) => {
     let query = {}
 
     db.find(query).exec((err, data) => {
-        console.log(data)
+        res.send(data);
     })
 
 
