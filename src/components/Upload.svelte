@@ -1,6 +1,11 @@
 <script>
     let file;
-    let title;
+    let title = '';
+    let description = '';
+    let descriptionSourceLink = '';
+    let descriptionSource = '';
+    let videoLink = '';
+    let videoSource = '';
 
     function handleFileUpload(event) {
         file = event.target.files[0];
@@ -17,6 +22,9 @@
         const formData = new FormData();
         formData.append('video', file);
         formData.append('title', title);
+        formData.append('description', description);
+        formData.append('descriptionSourceLink', descriptionSourceLink);
+        formData.append('descriptionSource', descriptionSource);
 
         // Log the form data
         console.log('Title being sent:', title);
@@ -49,10 +57,14 @@
 
 <div class="container">
     <h1>Upload</h1>
-    <form on:submit={uploadFile} enctype="multipart/form-data">
-        <input id="title" type="text" name="title" placeholder="Title" />
+    <form on:submit={uploadFile} class="upload-form" enctype="multipart/form-data">
+        <input id="title" type="text" name="title" bind:value={title} placeholder="Title" />
+        <textarea id="description" name="description" bind:value={description} placeholder="Description"></textarea>
+        <input id="descriptionSourceLink" type="text" name="descriptionSourceLink" bind:value={descriptionSourceLink} placeholder="Description Source Link" />
+        <input id="descriptionSource" type="text" name="descriptionSource" bind:value={descriptionSource} placeholder="Description Source" />
         <input id="video" type="file" name="video" on:change={handleFileUpload} />
         <button type="submit">Upload</button>
+        <!-- need to handle redirecting to new upload page -->
     </form>
 </div>
 
@@ -61,5 +73,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+    }
+
+    .upload-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
     }
 </style>

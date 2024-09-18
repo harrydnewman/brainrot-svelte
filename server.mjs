@@ -30,8 +30,6 @@ app.use(cors());
 
 app.post('/uploadVideo', upload.single('video'), (req, res) => {
     console.log('Received request body:', req.body);
-    console.log('Received file:', req.file);
-    // title still not being received!!
     
     if (!req.file) {
         console.error('No file received');
@@ -39,13 +37,12 @@ app.post('/uploadVideo', upload.single('video'), (req, res) => {
     }
     try {
         const title = req.body.title || 'Untitled';
-        console.log('Title:', title);
-        console.log('File:', req.file);
-        
+        console.log(req.file.path)
         res.status(200).json({ 
             message: 'File uploaded successfully!',
             title: title,
-            filePath: req.file.path 
+            filePath: req.file.path
+            
         });
     } catch (error) {
         console.error('Error during file upload:', error);
