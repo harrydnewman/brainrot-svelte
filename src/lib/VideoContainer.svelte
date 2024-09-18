@@ -1,3 +1,4 @@
+<!-- this needs to be cleaned uop -->
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   let innerScrollTop = 0;

@@ -78,7 +78,8 @@
 <style>
     .container {
         display: inline-flex;
-        align-items: left;
+        align-items: center;
+        justify-content: center;
         height: 100%;
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */

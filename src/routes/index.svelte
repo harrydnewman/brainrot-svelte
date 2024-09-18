@@ -4,6 +4,7 @@
     import VideoPage from '../components/VideoPage.svelte';
     import Upload from '../components/Upload.svelte';
     import VideoTesting from '../components/VideoTesting.svelte';
+    import VideoPlayerTesting from '../components/VideoPlayerTesting.svelte';
     export let url = '';
 </script>
 
@@ -13,5 +14,6 @@
         <Route path="upload" component={Upload} />
         <Route path="/" component={Home} />
         <Route path="video" component={VideoTesting} />
+        <Route path="video-player-testing" component={VideoPlayerTesting} />
     </div>
 </Router>

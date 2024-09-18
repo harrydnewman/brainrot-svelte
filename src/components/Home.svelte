@@ -7,4 +7,5 @@
     <Link to="scroll">Scroll</Link>
     <Link to="upload">Upload</Link>
     <Link to="video">Video</Link>
+    <Link to="video-player-testing">Video Player Testing</Link>
   </div>

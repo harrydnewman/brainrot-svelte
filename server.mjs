@@ -62,6 +62,8 @@ app.post('/uploadVideo', upload.single('video'), (req, res) => {
     }
 });
 
+// need one for getting all post ids, one for getting specific content from database, and one for fetching video from database data
+
 app.get('/getVideos', (req, res) => {
     const uploadPath = path.join(__dirname, 'uploads');
     fs.readdir(uploadPath, (err, files) => {
@@ -74,6 +76,28 @@ app.get('/getVideos', (req, res) => {
         res.json(videoFiles);
     });
 });
+
+app.get('/requestContent', (req, res) => {
+    let query = {}
+
+    db.find(query).exec((err, data) => {
+        console.log(data)
+    })
+
+
+
+
+})
+
+app.get('/requestVideo', (req, res) => {
+    let query = {}
+
+
+
+
+})
+
+
 
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
